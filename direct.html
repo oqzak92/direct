@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Redirection vers un navigateur externe</title>
+    <script>
+        // Cette fonction redirige l'utilisateur vers l'URL cible dans un nouvel onglet
+        function redirectToForm() {
+            var url = "http://bit.ly/3VzpIOr";  // Remplacez par l'URL de votre formulaire
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // Si l'utilisateur est sur Instagram mobile, essayer d'ouvrir le lien dans un autre onglet
+            if (/instagram/i.test(userAgent)) {
+                // Ouvrir dans un nouvel onglet
+                window.open(url, "_blank");
+                // Vous pouvez aussi essayer de forcer la redirection, mais cela peut échouer selon les restrictions
+                window.location.href = url;
+            } else {
+                // Si l'utilisateur n'est pas sur Instagram, ouvrir normalement
+                window.open(url, "_blank");
+            }
+
+            // Afficher le lien en cas d'échec
+            document.getElementById("manualLink").style.display = 'block';
+        }
+
+        // Rediriger automatiquement après 3 secondes
+        window.onload = function () {
+            setTimeout(redirectToForm, 3000); // Délai de 3 secondes avant la redirection
+        };
+    </script>
+</head>
+
+<body>
+    <h2>Redirection en cours...</h2>
+    <p>Merci de patienter pendant que nous vous redirigeons vers un autre navigateur.</p>
+
+    <!-- Lien visible en cas d'échec de la redirection automatique -->
+    <p id="manualLink" style="display:none;">
+        Si la redirection ne fonctionne pas, cliquez sur le lien suivant pour ouvrir le formulaire dans un autre
+        navigateur :
+        <a href="http://bit.ly/3VzpIOr" target="_blank">Ouvrir le formulaire dans un autre navigateur</a>
+    </p>
+</body>
+
+</html>
